@@ -1,0 +1,27 @@
+# Maintainer: mnabila nblid48[at]gmail[dot]com
+
+pkgname=jupyterlab-desktop-bin
+pkgver=3.3.4
+pkgrel=2
+pkgdesc="JupyterLab desktop application, based on Electron."
+
+url="https://github.com/jupyterlab/jupyterlab-desktop"
+license=("MIT")
+
+arch=('x86_64')
+source=("https://github.com/jupyterlab/jupyterlab-desktop/releases/download/v$pkgver-$pkgrel/JupyterLab-Setup-Debian.deb")
+
+md5sums=('2adacaf2194c3a96f89b46c7534bf5d8')
+
+prepare(){
+    cd $srcdir
+    tar -xf data.tar.xz
+}
+
+package() {
+    cd $srcdir
+    mv usr $pkgdir/
+    mv opt $pkgdir/
+	mkdir -p $pkgdir/usr/bin
+    ln -sf /opt/JupyterLab/jupyterlab-desktop $pkgdir/usr/bin/jlab
+}
